@@ -1,271 +1,538 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adventures with Dani</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            color: #333;
-        }
-        header {
-            text-align: center;
-            padding: 40px 20px;
-            color: white;
-        }
-        header h1 {
-            font-size: 2.5rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            margin-bottom: 10px;
-        }
-        header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-        .hero-image {
-            width: 100%;
-            max-width: 600px;
-            margin: 0 auto 30px;
-            display: block;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-        .experiences-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        .experience-card {
-            background: white;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transition: transform 0.3s ease;
-        }
-        .experience-card:hover {
-            transform: translateY(-5px);
-        }
-        .card-header {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            cursor: pointer;
-            background: linear-gradient(90deg, #f8f9fa 0%, #ffffff 100%);
-        }
-        .card-header img {
-            width: 80px;
-            height: 80px;
-            border-radius: 10px;
-            object-fit: cover;
-            margin-right: 20px;
-        }
-        .card-header h2 {
-            flex: 1;
-            font-size: 1.4rem;
-            color: #667eea;
-        }
-        .discover-btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        .discover-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-        .card-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-            background: #f8f9fa;
-        }
-        .card-content.active {
-            max-height: 1000px;
-        }
-        .card-content-inner {
-            padding: 20px;
-        }
-        .card-content p {
-            line-height: 1.8;
-            margin-bottom: 20px;
-            color: #555;
-        }
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-        }
-        .gallery img {
-            width: 100%;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 10px;
-            transition: transform 0.3s ease;
-        }
-        .gallery img:hover {
-            transform: scale(1.05);
-        }
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: white;
-            opacity: 0.8;
-        }
-        /* Placeholder per immagini */
-        .placeholder-img {
-            background: linear-gradient(135deg, #e0e5ec 0%, #d0d5dc 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-            font-size: 0.8rem;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adventures with Dani · Sardegna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,0..100;1,9..144,300..700,0..100&family=Geist:wght@300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper:      #f2ebe0;
+  --paper-soft: #ebe3d6;
+  --ink:        #1a1815;
+  --ink-soft:   #4a4640;
+  --ink-mute:   #8a8278;
+  --line:       #d8cfbd;
+  --accent:     #b94e2a;   /* Sardinian terracotta */
+  --sea:        #4a6b7c;   /* faded Mediterranean */
+
+  --serif: 'Fraunces', 'Times New Roman', serif;
+  --sans:  'Geist', system-ui, sans-serif;
+  --mono:  'JetBrains Mono', ui-monospace, monospace;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--paper);
+  color: var(--ink);
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(185, 78, 42, 0.04) 0%, transparent 45%),
+    radial-gradient(circle at 85% 75%, rgba(74, 107, 124, 0.04) 0%, transparent 45%);
+  background-attachment: fixed;
+}
+
+::selection { background: var(--ink); color: var(--paper); }
+
+.wrap { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+
+/* ─── MASTHEAD ───────────────────────────── */
+.masthead { padding-top: 64px; padding-bottom: 24px; }
+
+.label {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.label::before, .label::after {
+  content: '';
+  height: 1px;
+  background: var(--line);
+  flex: 1;
+}
+
+.title {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(3.2rem, 11vw, 8.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  margin: 44px 0 28px;
+  font-variation-settings: "SOFT" 100, "opsz" 144;
+}
+.title .with {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--ink-soft);
+}
+.title .name {
+  font-style: italic;
+  color: var(--accent);
+  font-variation-settings: "SOFT" 100, "opsz" 144;
+  position: relative;
+}
+
+.subtitle {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
+  color: var(--ink-soft);
+  max-width: 520px;
+  line-height: 1.5;
+  font-variation-settings: "opsz" 24;
+}
+
+/* ─── HERO ───────────────────────────────── */
+.hero {
+  margin: 56px auto 0;
+  position: relative;
+}
+.hero-image {
+  width: 100%;
+  height: clamp(340px, 62vh, 620px);
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.02);
+  display: block;
+}
+.hero-meta {
+  position: absolute;
+  bottom: 20px;
+  right: 68px;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: rgba(26, 24, 21, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 9px 14px;
+}
+
+/* ─── SECTION HEADER ─────────────────────── */
+.section-header {
+  margin-top: 96px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 22px;
+}
+.section-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--ink);
+  font-variation-settings: "opsz" 24;
+}
+.section-count {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+/* ─── EXPERIENCES ────────────────────────── */
+.experiences { padding-bottom: 16px; }
+
+.experience {
+  border-bottom: 1px solid var(--line);
+}
+
+.experience-header {
+  display: grid;
+  grid-template-columns: 70px 100px 1fr auto;
+  align-items: center;
+  gap: 32px;
+  padding: 36px 0;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.experience-header:hover { transform: translateX(8px); }
+
+.experience-number {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--ink-mute);
+}
+
+.experience-thumb {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  filter: saturate(0.9);
+  transition: filter 0.5s ease;
+}
+.experience:hover .experience-thumb { filter: saturate(1.05); }
+
+.experience-title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 3.6vw, 2.6rem);
+  letter-spacing: -0.012em;
+  line-height: 1.08;
+  font-variation-settings: "opsz" 80, "SOFT" 40;
+}
+.experience-title em {
+  font-style: italic;
+  font-weight: 300;
+  color: var(--accent);
+}
+.experience-title .meta {
+  display: block;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-style: normal;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-top: 10px;
+}
+
+/* The ± toggle */
+.toggle {
+  width: 46px;
+  height: 46px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+.toggle::before, .toggle::after {
+  content: '';
+  position: absolute;
+  background: var(--ink);
+  top: 50%; left: 50%;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.toggle::before { width: 14px; height: 1px; transform: translate(-50%, -50%); }
+.toggle::after  { width: 1px; height: 14px; transform: translate(-50%, -50%); }
+
+.experience.active .toggle {
+  background: var(--ink);
+  border-color: var(--ink);
+  transform: rotate(45deg);
+}
+.experience.active .toggle::before,
+.experience.active .toggle::after {
+  background: var(--paper);
+}
+
+/* Expandable body */
+.experience-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.experience.active .experience-content { grid-template-rows: 1fr; }
+
+.experience-content > div { overflow: hidden; }
+
+.experience-content-inner {
+  padding: 4px 0 64px;
+  display: grid;
+  grid-template-columns: 70px 100px 1fr;
+  gap: 32px;
+}
+.experience-content-inner > .spacer { grid-column: span 2; }
+
+.experience-text {
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 1.18rem;
+  line-height: 1.72;
+  max-width: 62ch;
+  color: var(--ink-soft);
+  font-variation-settings: "opsz" 18;
+  margin-bottom: 36px;
+}
+.experience-text strong { font-weight: 500; color: var(--ink); }
+.experience-text em { color: var(--accent); font-style: italic; }
+
+.experience-text::first-letter {
+  font-size: 3.4em;
+  float: left;
+  line-height: 0.85;
+  margin: 0.08em 0.08em 0 -0.04em;
+  font-weight: 400;
+  color: var(--ink);
+  font-variation-settings: "opsz" 144;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.gallery img {
+  width: 100%;
+  aspect-ratio: 4/5;
+  object-fit: cover;
+  filter: saturate(0.92);
+  transition: all 0.5s ease;
+  cursor: zoom-in;
+}
+.gallery img:hover {
+  filter: saturate(1.05);
+  transform: translateY(-3px);
+}
+
+/* ─── FOOTER ─────────────────────────────── */
+footer {
+  margin-top: 72px;
+  padding: 36px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--line);
+}
+.foot-left {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.signature {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 1.05rem;
+  color: var(--ink);
+  font-variation-settings: "opsz" 24;
+}
+.signature .heart { color: var(--accent); font-style: normal; }
+
+/* ─── ENTRY ANIMATION ────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade { opacity: 0; animation: fadeUp 0.9s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+.d1 { animation-delay: 0.05s; }
+.d2 { animation-delay: 0.18s; }
+.d3 { animation-delay: 0.30s; }
+.d4 { animation-delay: 0.45s; }
+
+/* ─── MOBILE ─────────────────────────────── */
+@media (max-width: 760px) {
+  .wrap { padding: 0 24px; }
+  .masthead { padding-top: 40px; }
+  .title { margin: 32px 0 20px; }
+  .hero { margin-top: 40px; }
+  .hero-meta { right: 36px; bottom: 16px; }
+  .section-header { margin-top: 64px; }
+
+  .experience-header {
+    grid-template-columns: 56px 72px 1fr 38px;
+    gap: 14px;
+    padding: 26px 0;
+  }
+  .experience-thumb { width: 72px; height: 72px; }
+  .experience-number { font-size: 10px; }
+
+  .experience-content-inner {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-bottom: 44px;
+  }
+  .experience-content-inner > .spacer { display: none; }
+  .experience-text { font-size: 1.05rem; }
+  .experience-text::first-letter { font-size: 3em; }
+
+  .gallery { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+
+  .toggle { width: 38px; height: 38px; }
+  .toggle::before { width: 12px; }
+  .toggle::after  { height: 12px; }
+
+  footer {
+    flex-direction: column;
+    gap: 14px;
+    text-align: center;
+    padding: 30px 0;
+  }
+}
+</style>
 </head>
 <body>
-    <header>
-        <h1>✨ Adventures with Dani ✨</h1>
-        <p>Scopri le meraviglie della Sardegna</p>
-    </header>
-    <!-- Immagine principale - sostituisci src con la tua foto -->
-    <img src="[images.unsplash.com](https://images.unsplash.com/photo-1586500483029-631e5e7b2164?w=600&q=80)" 
-         alt="Sardegna" 
-         class="hero-image">
-    <div class="experiences-container">
-        
-        <!-- MASUA -->
-        <div class="experience-card">
-            <div class="card-header" onclick="toggleCard(this)">
-                <img src="[images.unsplash.com](https://images.unsplash.com/photo-1596627116790-af6f46dddbff?w=200&q=80)" 
-                     alt="Masua">
-                <h2>🏝️ Masua</h2>
-                <button class="discover-btn">Scopri di più</button>
+
+<header class="wrap masthead">
+  <div class="label fade d1">MUST-TRY EXPERIENCES</div>
+  <h1 class="title fade d2">Adventures<br><span class="with">with</span> <span class="name">Dani & Tati</span></h1>
+  <p class="subtitle fade d3">Un diario in continua evoluzione —<br>posti fighi con persone ancora più fighe.</p>
+</header>
+
+<section class="wrap fade d4">
+  <div class="hero">
+    <img class="hero-image" src="https://101-zone.com/wp-content/uploads/2023/03/DJI_0782.jpg" alt="Sardegna">
+    <div class="hero-meta">Sardegna</div>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="section-header">
+    <div class="section-title">Le esperienze</div>
+  </div>
+
+  <div class="experiences">
+
+    <!-- 01 — MASUA -->
+    <article class="experience">
+      <div class="experience-header" onclick="toggleExperience(this)">
+        <div class="experience-number">N° 01</div>
+        <img class="experience-thumb" src="https://d2exd72xrrp1s7.cloudfront.net/www/000/1k9/yo/yoc9na7f1j0915dxxyyzvat65jpam46d-uhi95181846/0?width=768&height=576&crop=true" alt="Masua">
+        <h2 class="experience-title">
+          <em>Masua</em><span class="meta">Iglesias · Sud-Ovest</span>
+        </h2>
+        <div class="toggle" aria-label="Espandi"></div>
+      </div>
+      <div class="experience-content">
+        <div>
+          <div class="experience-content-inner">
+            <div class="spacer"></div>
+            <div>
+              <p class="experience-text"><strong>Masua</strong> è una piccola frazione nel comune di Iglesias, famosa per la sua spiaggia e l'iconico <em>Pan di Zucchero</em>, il più alto faraglione d'Italia. Un luogo magico dove il mare cristallino incontra le antiche miniere, creando un paesaggio unico al mondo. C'è poi <em>Porto Flavia</em>, una straordinaria opera di ingegneria mineraria scavata nella roccia, offre una vista mozzafiato.</p>
+			  <p class="experience-text"><strong>La gita</strong> prevede escursione in kayak alla scoperta di tutte le grotte nascoste, come <em>Grotta Sardegna</em> e <em>Grotta della Spigola</em>, per poi ammirare Pan di zucchero da vicino. Prevista anche gitina in gommone con diverse tappe bagnetto fino a <em>Cala Domestica</em>.</p>
+
+              <div class="gallery">
+                <img src="https://i.pinimg.com/736x/ca/19/ec/ca19ecb031e5470c5a1277885403e97b.jpg" alt="Masua">
+                <img src="https://101-zone.com/wp-content/uploads/2023/03/DJI_0722.jpg" alt="Masua">
+                <img src="https://photo.marein.it/Photos/contCover/Cont141_197.jpg" alt="Masua">
+				<img src="https://i0.wp.com/www.bandhulera.it/wp-content/uploads/2023/01/Grotta-delle-Spigole.jpg?resize=768%2C1024&ssl=1" alt="Masua">
+				<img src="https://mariapaolucci.com/cdn/shop/products/PortoFlaviaMatteo2.jpg?v=1669632343&width=1445" alt="Masua">
+				<img src="https://www.altrasardegna.it/wp-content/uploads/2020/08/Grotta-San-Giovanni-768x512.jpg" alt="Masua">
+              </div>
             </div>
-            <div class="card-content">
-                <div class="card-content-inner">
-                    <p>
-                        <strong>Masua</strong> è una piccola frazione nel comune di Iglesias, famosa per la sua spiaggia 
-                        e l'iconico <em>Pan di Zucchero</em>, il più alto faraglione d'Italia. 
-                        Un luogo magico dove il mare cristallino incontra le antiche miniere, 
-                        creando un paesaggio unico al mondo. La Porto Flavia, una straordinaria 
-                        opera di ingegneria mineraria scavata nella roccia, offre una vista mozzafiato.
-                    </p>
-                    <div class="gallery">
-                        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1596627116790-af6f46dddbff?w=300&q=80)" alt="Masua 1">
-                        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1534430480872-3498386e7856?w=300&q=80)" alt="Masua 2">
-                        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80)" alt="Masua 3">
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-        <!-- SANT'ANTIOCO -->
-        <div class="experience-card">
-            <div class="card-header" onclick="toggleCard(this)">
-                <img src="[images.unsplash.com](https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=200&q=80)" 
-                     alt="Sant'Antioco">
-                <h2>🌊 Sant'Antioco</h2>
-                <button class="discover-btn">Scopri di più</button>
+      </div>
+    </article>
+
+    <!-- 02 — SANT'ANTIOCO -->
+    <article class="experience">
+      <div class="experience-header" onclick="toggleExperience(this)">
+        <div class="experience-number">N° 02</div>
+        <img class="experience-thumb" src="https://www.sardegnaturismo.it/sites/default/files/shutterstock_138482807_isola_s.antioco_capo_sperone_andrzej_fryda.jpg_resize.jpg" alt="Sant'Antioco">
+        <h2 class="experience-title">
+          <em>Sant'Antioco</em><span class="meta">Isola · Sulcis</span>
+        </h2>
+        <div class="toggle" aria-label="Espandi"></div>
+      </div>
+      <div class="experience-content">
+        <div>
+          <div class="experience-content-inner">
+            <div class="spacer"></div>
+            <div>
+              <p class="experience-text"><strong>Sant'Antioco</strong> è la quarta isola italiana per dimensione, collegata alla Sardegna da un istmo artificiale. Ricca di storia <em>fenicio-punica</em>, offre spiagge incontaminate, che rimandano a quella Sardegna selvaggia che stiamo ormai dimenticando. Il centro storico conserva il fascino antico con le sue case colorate e il <em>tophet punico</em>, uno dei più importanti del Mediterraneo.</p>
+              <p class="experience-text"><strong>La gita</strong> qui prevede avventure tra sentieri wild sant'antiochiesi che raggiungono piscine naturali e grotte nascoste, il Villaggio Ipogeo, il tramonto unico da <em>Cala Sapone</em> e una notte nel glamping del <em>Semaforo di Capo Sperone</em>.</p>
+              <div class="gallery">
+                <img src="https://i.pinimg.com/474x/bb/cd/5b/bbcd5bbbf2a57e31a7803bff58a9b06d.jpg" alt="Sant'Antioco">
+                <img src="https://www.marecalmo.org/wp-content/uploads/2018/08/IMG_3941-1024x768.jpg" alt="Sant'Antioco">
+                <img src="https://turistipercaso.it/wp-content/uploads/2021/11/calasetta-bqt6z.jpg" alt="Sant'Antioco">
+				<img src="https://www.bebsemaforocaposperone.it/wp-content/uploads/2025/01/231011083649_00-1024x768-1.jpg" alt="Sant'Antioco">
+				<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjx8GAWyK5VdibvkEKwIQPwOKbKFFFhMOZdQ&s" alt="Sant'Antioco">
+				<img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/e1/bf/91/il-faro-di-giorno-vistodall.jpg?w=900&h=500&s=1" alt="Sant'Antioco">
+              </div>
             </div>
-            <div class="card-content">
-                <div class="card-content-inner">
-                    <p>
-                        <strong>Sant'Antioco</strong> è la quarta isola italiana per dimensione, 
-                        collegata alla Sardegna da un istmo artificiale. Ricca di storia fenicio-punica, 
-                        offre spiagge incontaminate come Maladroxia e Coa Quaddus. 
-                        Il centro storico conserva il fascino antico con le sue case colorate 
-                        e il tophet punico, uno dei più importanti del Mediterraneo.
-                    </p>
-                    <div class="gallery">
-                        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=300&q=80)" alt="Sant'Antioco 1">
-                        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&q=80)" alt="Sant'Antioco 2">
-                        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1519046904884-53103b34b206?w=300&q=80)" alt="Sant'Antioco 3">
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-        <!-- CARLOFORTE -->
-        <div class="experience-card">
-            <div class="card-header" onclick="toggleCard(this)">
-                <img src="[images.unsplash.com](https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=200&q=80)" 
-                     alt="Carloforte">
-                <h2>⛵ Carloforte</h2>
-                <button class="discover-btn">Scopri di più</button>
+      </div>
+    </article>
+
+    <!-- 03 — CARLOFORTE -->
+    <article class="experience">
+      <div class="experience-header" onclick="toggleExperience(this)">
+        <div class="experience-number">N° 03</div>
+        <img class="experience-thumb" src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=400&q=85" alt="Carloforte">
+        <h2 class="experience-title">
+          <em>Carloforte</em><span class="meta">Isola di San Pietro</span>
+        </h2>
+        <div class="toggle" aria-label="Espandi"></div>
+      </div>
+      <div class="experience-content">
+        <div>
+          <div class="experience-content-inner">
+            <div class="spacer"></div>
+            <div>
+              <p class="experience-text"><strong>Neulé</strong>, un agriturismo sull'isola di San Pietro, è un gioiello ligure in terra sarda. Fondata nel <em>1738</em> da una comunità di pescatori provenienti da Pegli, mandati a gestire le famose tonnare, conserva ancora oggi il dialetto <em>tabarchino</em>. Case e stradine con i loro colori unici sono un rimando continuo alla Liguria, come anche la cucina con la loro focaccia e la <em>Pasta alla Carlofortina</em> con il famoso pesto ligure. L'isola offre calette nascoste come La Bobba e Cala Fico.</p>
+              <p class="experience-text"><strong>La gita</strong> consiste nel tour intero dell'isola alla scoperta di cale nascoste, da fare sia in macchina sia in bici. Il tour prevede diverse tappe gastronomiche doverose e la visita al museo della tonnara.</p>
+              <div class="gallery">
+                <img src="https://travelplannerfamily.com/wp-content/uploads/2021/10/Carloforte-3.jpg" alt="Carloforte">
+                <img src="https://images.unsplash.com/photo-1533105079780-92b9be482077?w=600&q=85" alt="Carloforte">
+                <img src="https://www.sardegnaturismo.it/sites/default/files/styles/larghezza_contenitore/public/attrattori/shutterstock_289371158_carloforte_cala_fico_antonio_s.jpg_resize.jpg?itok=xj_Olz5l" alt="Carloforte">
+				<img src="https://thumbs.dreamstime.com/b/isola-di-san-pietro-spiaggia-di-bobba-della-la-36669740.jpg" alt="Carloforte">
+				<img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/14/19/fb/be/tonnara-su-pranu.jpg?w=800&h=500&s=1" alt="Carloforte">
+				<img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiBAkzt96FyfdX7vxgkoNzIvUeQ6ksjGQ5ZC087bLvZJ2_nVrD8gjjbzTFUi-4XMsbZP3rtqRL3TVxutL6JyMujqze-hpceL9tpBClU61D525N8sb1roY7a9iMwQnsOkAUc23FTI9OZeDI/s320/P9110006.JPG" alt="Carloforte">
+              </div>
             </div>
-            <div class="card-content">
-                <div class="card-content-inner">
-                    <p>
-                        <strong>Carloforte</strong>, sull'isola di San Pietro, è un gioiello ligure 
-                        in terra sarda. Fondata nel 1738 da una comunità di pescatori provenienti 
-                        da Pegli, conserva ancora oggi il dialetto tabarchino. 
-                        Famosa per la tonnara e la mattanza del tonno rosso, 
-                        offre calette nascoste come La Bobba e Cala Fico. 
-                        Le sue stradine colorate ricordano la Liguria.
-                    </p>
-                    <div class="gallery">
-                        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=300&q=80)" alt="Carloforte 1">
-                        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1533105079780-92b9be482077?w=300&q=80)" alt="Carloforte 2">
-                        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1504893524553-b855bce32c67?w=300&q=80)" alt="Carloforte 3">
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-        <!-- CALA LUNA -->
-        <div class="experience-card">
-            <div class="card-header" onclick="toggleCard(this)">
-                <img src="[images.unsplash.com](https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=200&q=80)" 
-                     alt="Cala Luna">
-                <h2>🌙 Cala Luna</h2>
-                <button class="discover-btn">Scopri di più</button>
+      </div>
+    </article>
+
+	<!-- 04 — Dorgali -->
+    <article class="experience">
+      <div class="experience-header" onclick="toggleExperience(this)">
+        <div class="experience-number">N° 04</div>
+        <img class="experience-thumb" src="https://agriturismoneule.com/wp-content/uploads/2026/03/Neule_343-1024x682.jpeg" alt="Cala Luna">
+        <h2 class="experience-title">
+          <em>Dorgali</em><span class="meta">Nuorese</span>
+        </h2>
+        <div class="toggle" aria-label="Espandi"></div>
+      </div>
+      <div class="experience-content">
+        <div>
+          <div class="experience-content-inner">
+            <div class="spacer"></div>
+            <div>
+              <p class="experience-text"><strong>Dorgali</strong> è una delle zone più affascinanti della Sardegna combinando mare, tra i più belli dell’isola, paesaggi montani selvaggi e storia antichissima. Spiagge come <em>Cala Fuili</em> e l'iconica <em>Cala Luna</em> sono tra le spiagge più spettacolari d’Europa. Ma la zona non è solo uno spettacolo di acqua salata, Dorgali regala anche scenari di acqua dolce con il <em>Lago Cedrino</em> che nonostante sia artificiale, ha un aspetto molto naturale e selvaggio, immerso tra montagne calcaree e vegetazione mediterranea.</p>
+              <p class="experience-text"><strong>La gita</strong> combina proprio questi due mondi: l'alloggio nell'agriturismo Neulé, sito proprio sopra il Lago Cedrino, ci permetterà di fare un tour in kayak nel lago fino a raggiungere la stupenda fonte di <em>Su Gologone</em>. Una volta tornate la cena in agriturismo ristorerà da tutte le calorie perse e il giorno dopo trekking da Cala Fuili a Cala Luna con rientro in gommone.</p>
+              <div class="gallery">
+                <img src="https://canaleskayak.it/wp-content/uploads/2021/06/1-scaled.jpg" alt="Dorgali">
+                <img src="https://www.sardegnadigitallibrary.it/mmt/1024/15673.jpg" alt="Dorgali">
+                <img src="https://www.letsgotosardinia.eu/wp-content/uploads/2019/04/132.jpg" alt="Dorgali">
+				<img src="https://i.ytimg.com/vi/glwgV-ERvNk/hqdefault.jpg" alt="Dorgali">
+				<img src="https://lh5.googleusercontent.com/proxy/xNrI5bduLrMD7fhl3tKPlC514gTSwRKoycLLC6_hFDVZVpwBc2Ifxox6avFbbY9hIhhlEx83P5F9jLL0hvMIj26lu0qiWDu4uUtzwyBqsoSEL2D4Iw5GkPb1UTixMkywO00VZNdplQrayWwQu13QEw" alt="Dorgali">
+				<img src="https://www.sardegnaturismo.it/sites/default/files/galleria/ssk_177547124_serra_orrios_dorgali_dmitry_naumov_rsz.jpg" alt="Dorgali">
+              </div>
             </div>
-            <div class="card-content">
-                <div class="card-content-inner">
-                    <p>
-                        <strong>Cala Luna</strong> è una delle spiagge più iconiche della Sardegna, 
-                        incastonata nel Golfo di Orosei. Raggiungibile via mare o attraverso 
-                        un trekking mozzafiato, è caratterizzata da grotte naturali scavate 
-                        nella falesia che offrono riparo dal sole. L'acqua turchese e la 
-                        sabbia dorata creano un paesaggio da cartolina. 
-                        Un vero paradiso terrestre.
-                    </p>
-                    <div class="gallery">
-                        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=300&q=80)" alt="Cala Luna 1">
-                        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1468413253725-0d5181091126?w=300&q=80)" alt="Cala Luna 2">
-                        <img src="[images.unsplash.com](https://images.unsplash.com/photo-1471922694854-ff1b63b20054?w=300&q=80)" alt="Cala Luna 3">
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
-    </div>
-    <footer>
-        <p>Made with ❤️ by Dani</p>
-    </footer>
-    <script>
-        function toggleCard(header) {
-            const content = header.nextElementSibling;
-            const btn = header.querySelector('.discover-btn');
-            
-            content.classList.toggle('active');
-            
-            if (content.classList.contains('active')) {
-                btn.textContent = 'Chiudi';
-            } else {
-                btn.textContent = 'Scopri di più';
-            }
-        }
-    </script>
+      </div>
+    </article>
+
+  </div>
+
+  <footer>
+    <div class="foot-left">WIP · Questo diario è in continua espansione</div>
+    <div class="signature">Fatto con <span class="heart">♥</span> da Tati</div>
+  </footer>
+</div>
+
+<script>
+function toggleExperience(header) {
+  header.parentElement.classList.toggle('active');
+}
+</script>
+
 </body>
 </html>
